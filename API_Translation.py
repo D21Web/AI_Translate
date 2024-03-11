@@ -112,3 +112,14 @@ def TranslateHtml(StrContent,TextTranslate,StrTarget = "en"):
         ListOut.append(StrHtml)
     return "".join(ListOut)
 
+if __name__ == "__main__":
+    StrFilePath = input("input the path:")
+    ListXhtmlName,ListContent = GetEpubSource(StrFilePath)
+    ObjClient = GetTranslateClient()
+    for IntXhtmlCnt in range(len(ListXhtmlName)):
+        StrXhtmlName = ListXhtmlName[IntXhtmlCnt]
+        StrContentRaw = ListContent[IntXhtmlCnt]
+        StrContentTranslated = TranslateHtml(StrContentRaw,TextTranslateMicrosoft)
+        with open(StrXhtmlName,"w",encoding="utf_8_sig")as f:
+            f.write(StrContentTranslated)
+        f.close()
